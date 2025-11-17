@@ -1,0 +1,11 @@
+{
+  "name": "prostagma",
+  "version": "1.0.0",
+  "description": "Kata Prostagma tou Theou.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lyszt Kaldwin",
+  "license": "ISC"
+}
