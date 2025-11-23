@@ -12,7 +12,7 @@ import Config
 # If you use `mix release`, you need to explicitly enable the server
 # by passing the PHX_SERVER=true when you start it:
 #
-#     PHX_SERVER=true bin/prostagma_server start
+#     PHX_SERVER=true bin/iris_server start
 #
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
@@ -72,7 +72,7 @@ if config_env() == :prod do
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
   #
-  #     config :prostagma_server, ProstagmaServerWeb.Endpoint,
+  #     config :iris_server, IrisServerWeb.Endpoint,
   #       https: [
   #         ...,
   #         port: 443,
@@ -94,7 +94,7 @@ if config_env() == :prod do
   # We also recommend setting `force_ssl` in your config/prod.exs,
   # ensuring no data is ever sent via http, always redirecting to https:
   #
-  #     config :prostagma_server, ProstagmaServerWeb.Endpoint,
+  #     config :iris_server, IrisServerWeb.Endpoint,
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
@@ -104,7 +104,7 @@ if config_env() == :prod do
   # In production you need to configure the mailer to use a different adapter.
   # Here is an example configuration for Mailgun:
   #
-  #     config :prostagma_server, ProstagmaServer.Mailer,
+  #     config :iris_server, IrisServer.Mailer,
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")
