@@ -7,6 +7,8 @@ import Datagrid from "../../components/datagrid";
 import { API_URL } from "../../config";
 import AddProject from "./AddProject.tsx";
 
+
+
 const Home: FC = () => {
   const baseUrl = API_URL;
   const [projects, setProjects] = useState<Project[]>([]);
@@ -25,13 +27,13 @@ const Home: FC = () => {
 
 
 
-  let currentPaginationModel = { page: 0, pageSize: projectsLength };
+  let currentPaginationModel = { page: 0, pageSize: projectsLength || 5 };
   const projectColumns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 20},
-    { field: "name", headerName: "Project Name", width: 100 },
-    { field: "description", headerName: "Project Description", width: 100 },
-     { field: "status", headerName: "Project Status", width: 1 },
-     {field: "stack", headerName:"Stack", width:100}
+    { field: "id", headerName: "ID", width: 70, minWidth: 50 },
+    { field: "name", headerName: "Project Name", width: 200, minWidth: 150, flex: 1 },
+    { field: "description", headerName: "Project Description", width: 300, minWidth: 200, flex: 2 },
+    { field: "status", headerName: "Project Status", width: 120, minWidth: 100 },
+    { field: "stack", headerName: "Stack", width: 150, minWidth: 120 }
   ];
 
 

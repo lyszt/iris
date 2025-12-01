@@ -48,7 +48,7 @@ export default function DataTable({
   paginationModel,
 }: DataTableProps) {
   return (
-    <Paper sx={{ height: 400, width: "100%" }}>
+    <Paper sx={{ height: 400, width: "100%", position: "relative", zIndex: 1 }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -56,6 +56,9 @@ export default function DataTable({
         pageSizeOptions={[5, 10]}
         checkboxSelection
         sx={{ border: 0 }}
+        localeText={{
+          noRowsLabel: "No projects created yet"
+        }}
       />
     </Paper>
   );

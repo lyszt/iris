@@ -46,3 +46,33 @@ textarea,
 select {
     font: inherit;
 }
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes popOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+.animate-popIn {
+    animation: popIn 0.2s ease-out forwards;
+}
+
+.animate-popOut {
+    animation: popOut 0.2s ease-in forwards;
+}
