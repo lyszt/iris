@@ -51,14 +51,15 @@ const Home: FC = () => {
 
 
   return (
-    <div>
-      <div className="bg-gray-100 p-5 w-full">
+    <main>
+      <header className="bg-gray-100 p-5 w-full">
         <h1 className="w-full flex justify-left items-center gap-5">
           <svg
             className="w-10"
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
             fill="#000000"
+            aria-hidden="true"
           >
             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
@@ -77,18 +78,18 @@ const Home: FC = () => {
           </svg>
           Current ongoing projects
         </h1>
-      </div>
+      </header>
 
-    {/*  DATAGRID + PROJECT ELEMENTS*/}
-
-    <AddProject projectManager={projectManager} projectRefresh={projectRefresh} setProjectRefresh={setProjectRefresh} />
+    <section aria-label="Project management">
+      <AddProject projectManager={projectManager} projectRefresh={projectRefresh} setProjectRefresh={setProjectRefresh} />
       <Datagrid
         rows={projects}
         columns={projectColumns}
         paginationModel={currentPaginationModel}
-      ></Datagrid>
-    </div>
-    
+      />
+    </section>
+    </main>
+
   );
 };
 

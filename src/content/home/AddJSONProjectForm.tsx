@@ -203,15 +203,15 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                     }
                 }}
             />
-            <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 text-slate-800 rounded">
+            <div className="flex items-start gap-2 p-3 bg-purple-50 border border-purple-200 text-slate-800 rounded">
                 <InfoOutlinedIcon fontSize="small" sx={{ color: 'var(--iris-primary)', mt: 0.2 }} aria-hidden="true" />
                 <div className="flex flex-col gap-1">
                     <p className="text-sm m-0 font-semibold">Bulk Import Tips:</p>
                     <ul className="text-sm m-0 pl-4 space-y-1">
                         <li>Use the template above as a reference for structure</li>
-                        <li>For multiple projects, wrap objects in an array: <code className="bg-blue-100 px-1 rounded">[{"{...}"}, {"{...}"}]</code></li>
+                        <li>For multiple projects, wrap objects in an array: <code className="bg-purple-100 px-1 rounded">[{"{...}"}, {"{...}"}]</code></li>
                         <li>All requests are processed in parallel for maximum speed</li>
-                        <li>Required fields: <code className="bg-blue-100 px-1 rounded">name</code> and <code className="bg-blue-100 px-1 rounded">status</code></li>
+                        <li>Required fields: <code className="bg-purple-100 px-1 rounded">name</code> and <code className="bg-purple-100 px-1 rounded">status</code></li>
                         <li>Use automated tools (LLMs, scripts) to convert your data to JSON format</li>
                     </ul>
                 </div>

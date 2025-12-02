@@ -1,0 +1,16 @@
+{
+  "name": "Iris - Project Portfolio Management",
+  "short_name": "Iris",
+  "description": "Modern project portfolio management system for developers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#9333ea",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
