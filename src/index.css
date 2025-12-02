@@ -76,3 +76,17 @@ select {
 .animate-popOut {
     animation: popOut 0.2s ease-in forwards;
 }
+
+/* Make SVGs inside buttons use the primary theme color and adjust on hover */
+button svg,
+button * {
+    color: var(--iris-primary);
+    fill: lightgray;
+    stroke: currentColor;
+    transition: 1s;
+}
+
+button:hover svg,
+button:hover * {
+    fill: white;
+}

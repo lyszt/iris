@@ -1,8 +1,8 @@
 /* HOVER ATTRIBUTES */
 
 button:hover * {
-    color: crimson !important;
+    color: var(--iris-primary) !important;
 }
 button:hover svg {
-    fill: crimson !important;
+    fill: var(--iris-primary) !important;
 }
