@@ -6,22 +6,41 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { addProject } from "./projectServices";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { addProject, addProjectsBulk, type BulkImportResult } from "./projectServices";
 // For clipboarding
 import DefaultDialog from "../../components/dialogs/defaultDialog";
 
-const jsonTemplate = `{
-"name": "Project Name",
-"description": "Project description",
-"status": "Planned",
-"priority": "medium",
-"progress": 0,
-"phase": "planning",
-"risk_level": "low",
-"is_active": true
-}`;
+const jsonTemplate = `Single project:
+{
+  "name": "Project Name",
+  "description": "Project description",
+  "status": "Planned",
+  "priority": "medium",
+  "progress": 0,
+  "phase": "planning",
+  "risk_level": "low",
+  "is_active": true
+}
+
+Multiple projects (array):
+[
+  {
+    "name": "Project 1",
+    "description": "First project",
+    "status": "Planned"
+  },
+  {
+    "name": "Project 2",
+    "description": "Second project",
+    "status": "In progress"
+  }
+]`;
 
 interface AddJSONProjectFormProps {
     projectManager: Network;
@@ -37,6 +56,8 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTimerId, setDialogTimerId] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [bulkResult, setBulkResult] = useState<BulkImportResult | null>(null);
 
     async function copyToClipboard() {
         await navigator.clipboard.writeText(jsonTemplate);
@@ -60,19 +81,46 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError(null);
+        setBulkResult(null);
+        setIsLoading(true);
 
         try {
-            const projectData: ProjectInput = JSON.parse(jsonInput);
+            const parsed = JSON.parse(jsonInput);
 
-            const status = await addProject(projectManager, projectData);
-            if (status >= 200 && status < 300) {
-                if (setProjectRefresh) setProjectRefresh((prev) => prev + 1);
-                onSubmit?.();
+            // Check if it's an array or single object
+            if (Array.isArray(parsed)) {
+                // Handle bulk import
+                const result = await addProjectsBulk(projectManager, parsed);
+                setBulkResult(result);
+
+                if (result.successCount > 0) {
+                    if (setProjectRefresh) setProjectRefresh((prev) => prev + 1);
+                }
+
+                // Only auto-close if all succeeded
+                if (result.failureCount === 0) {
+                    setTimeout(() => onSubmit?.(), 1500);
+                }
             } else {
-                setError(`Failed to submit project. Status: ${status}`);
+                // Handle single project
+                const status = await addProject(projectManager, parsed);
+                if (status >= 200 && status < 300) {
+                    if (setProjectRefresh) setProjectRefresh((prev) => prev + 1);
+                    setBulkResult({
+                        totalProjects: 1,
+                        successCount: 1,
+                        failureCount: 0,
+                        failures: []
+                    });
+                    setTimeout(() => onSubmit?.(), 1500);
+                } else {
+                    setError(`Failed to submit project. Status: ${status}`);
+                }
             }
         } catch (err) {
             setError(`Invalid JSON: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -99,6 +147,40 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
             {error && (
                 <Alert severity="error" onClose={() => setError(null)}>
                     {error}
+                </Alert>
+            )}
+
+            {isLoading && (
+                <Box sx={{ width: '100%' }}>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                        Importing projects...
+                    </Typography>
+                    <LinearProgress color="secondary" />
+                </Box>
+            )}
+
+            {bulkResult && (
+                <Alert
+                    severity={bulkResult.failureCount === 0 ? "success" : "warning"}
+                    icon={bulkResult.failureCount === 0 ? <CheckCircleOutlineIcon /> : <ErrorOutlineIcon />}
+                >
+                    <Typography variant="body2" fontWeight="bold">
+                        Import Complete: {bulkResult.successCount} of {bulkResult.totalProjects} projects added successfully
+                    </Typography>
+                    {bulkResult.failureCount > 0 && (
+                        <Box sx={{ mt: 1 }}>
+                            <Typography variant="body2" color="error">
+                                {bulkResult.failureCount} project(s) failed:
+                            </Typography>
+                            <ul style={{ margin: '4px 0', paddingLeft: '20px' }}>
+                                {bulkResult.failures.map((failure, idx) => (
+                                    <li key={idx} style={{ fontSize: '0.875rem' }}>
+                                        <strong>{failure.projectName}</strong>: {failure.error}
+                                    </li>
+                                ))}
+                            </ul>
+                        </Box>
+                    )}
                 </Alert>
             )}
 
@@ -150,8 +232,9 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                     variant="contained"
                     color="primary"
                     size="large"
+                    disabled={isLoading}
                 >
-                    Add Project
+                    {isLoading ? 'Adding...' : 'Add Project(s)'}
                 </Button>
             </div>
         </Box>
