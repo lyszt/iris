@@ -195,6 +195,7 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                 onChange={(e) => setJsonInput(e.target.value)}
                 placeholder={jsonTemplate}
                 fullWidth
+                helperText="Paste valid JSON for one project (object) or multiple projects (array)"
                 sx={{
                     '& textarea': {
                         fontFamily: 'monospace',
@@ -202,9 +203,18 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                     }
                 }}
             />
-            <div className="flex items-start gap-2 p-2 bg-purple-100 text-slate-800 rounded">
-                <InfoOutlinedIcon fontSize="small" sx={{ color: 'var(--iris-primary)' }} aria-hidden="true" />
-                <p className="text-sm m-0">Tip: To import multiple projects at once, provide a JSON array of project objects using the structure shown above. You may use an automated tool (for example, an LLM or a script) to transform your source data into the required JSON format before pasting and submitting it here.</p>
+            <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 text-slate-800 rounded">
+                <InfoOutlinedIcon fontSize="small" sx={{ color: 'var(--iris-primary)', mt: 0.2 }} aria-hidden="true" />
+                <div className="flex flex-col gap-1">
+                    <p className="text-sm m-0 font-semibold">Bulk Import Tips:</p>
+                    <ul className="text-sm m-0 pl-4 space-y-1">
+                        <li>Use the template above as a reference for structure</li>
+                        <li>For multiple projects, wrap objects in an array: <code className="bg-blue-100 px-1 rounded">[{"{...}"}, {"{...}"}]</code></li>
+                        <li>All requests are processed in parallel for maximum speed</li>
+                        <li>Required fields: <code className="bg-blue-100 px-1 rounded">name</code> and <code className="bg-blue-100 px-1 rounded">status</code></li>
+                        <li>Use automated tools (LLMs, scripts) to convert your data to JSON format</li>
+                    </ul>
+                </div>
             </div>
             <br />
             <div className="flex flex-row gap-2">
@@ -213,16 +223,16 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                     startIcon={<LibraryAddCheckOutlinedIcon />}
                     type="button"
                     onClick={copyToClipboard}
-                    variant="contained"
+                    variant="outlined"
                     color="secondary"
                     size="large"
                     aria-label="Copy JSON template to clipboard"
                 >
-                    Copy JSON Template
+                    Copy Template
                 </Button>
 
                 {showDialog && (
-                <DefaultDialog innerText="You have copied the JSON template." />
+                <DefaultDialog innerText="Template copied to clipboard" />
                 )}
 
 
@@ -234,7 +244,7 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                     size="large"
                     disabled={isLoading}
                 >
-                    {isLoading ? 'Adding...' : 'Add Project(s)'}
+                    {isLoading ? 'Importing...' : 'Import Project(s)'}
                 </Button>
             </div>
         </Box>

@@ -157,6 +157,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
                 fullWidth
+                helperText="A unique identifier for your project"
             />
             <TextField
                 label="Description"
@@ -167,12 +168,13 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                 value={projectDesc}
                 onChange={(e) => setProjectDesc(e.target.value)}
                 fullWidth
+                helperText="Brief overview of what this project does"
             />
             <Autocomplete
                 value={projectStatus}
                 onChange={(_event, newValue) => setProjectStatus(newValue || "Planned")}
                 options={["Planned", "In progress", "On hold", "Completed", "Abandoned"]}
-                renderInput={(params) => <TextField {...params} label="Status" required />}
+                renderInput={(params) => <TextField {...params} label="Status" required helperText="Current state of the project" />}
                 slotProps={{ popper: { style: { zIndex: 20000 } } }}
             />
 
@@ -189,6 +191,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                             label="Stacks/Technologies"
                             placeholder="Select languages and frameworks"
                             color="secondary"
+                            helperText="Programming languages, frameworks, and tools used"
                         />
                     )}
                     slotProps={{
@@ -212,6 +215,11 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
             >
                 {isExpanded ? "Less Options" : "More Options"}
             </Button>
+            {!isExpanded && (
+                <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', display: 'block' }}>
+                    Click to add URLs, timelines, team info, effort tracking, and more
+                </Typography>
+            )}
 
             {/* Expanded View - Additional Fields */}
             {isExpanded && (
@@ -235,6 +243,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setRepositoryUrl(e.target.value)}
                                 fullWidth
                                 size="small"
+                                placeholder="https://github.com/username/repo"
+                                helperText="Link to source code repository (GitHub, GitLab, etc.)"
                             />
                             <TextField
                                 label="Documentation URL"
@@ -245,6 +255,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setDocumentationUrl(e.target.value)}
                                 fullWidth
                                 size="small"
+                                placeholder="https://docs.example.com"
+                                helperText="Link to project documentation or wiki"
                             />
                             <TextField
                                 label="Demo URL"
@@ -255,6 +267,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setDemoUrl(e.target.value)}
                                 fullWidth
                                 size="small"
+                                placeholder="https://demo.example.com"
+                                helperText="Link to live demo or deployed application"
                             />
 
                             <Divider sx={{ mt: 1 }} />
@@ -273,6 +287,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setStartDate(e.target.value)}
                                 fullWidth
                                 size="small"
+                                helperText="When the project began or will begin"
                             />
                             <TextField
                                 label="End Date"
@@ -284,6 +299,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setEndDate(e.target.value)}
                                 fullWidth
                                 size="small"
+                                helperText="Expected or actual completion date"
                             />
                             <TextField
                                 label="Deadline"
@@ -295,12 +311,13 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setDeadline(e.target.value)}
                                 fullWidth
                                 size="small"
+                                helperText="Hard deadline for project delivery"
                             />
                             <Autocomplete
                                 value={priority}
                                 onChange={(_event, newValue) => setPriority((newValue || "medium") as any)}
                                 options={["low", "medium", "high", "critical"]}
-                                renderInput={(params) => <TextField {...params} label="Priority" size="small" />}
+                                renderInput={(params) => <TextField {...params} label="Priority" size="small" helperText="Urgency level of this project" />}
                                 slotProps={{ popper: { style: { zIndex: 20000 } } }}
                             />
 
@@ -320,12 +337,13 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setProgress(Number(e.target.value))}
                                 fullWidth
                                 size="small"
+                                helperText="Overall completion percentage (0-100)"
                             />
                             <Autocomplete
                                 value={phase}
                                 onChange={(_event, newValue) => setPhase((newValue || "planning") as any)}
                                 options={["planning", "design", "development", "testing", "deployment", "maintenance"]}
-                                renderInput={(params) => <TextField {...params} label="Phase" size="small" />}
+                                renderInput={(params) => <TextField {...params} label="Phase" size="small" helperText="Current development stage" />}
                                 slotProps={{ popper: { style: { zIndex: 20000 } } }}
                             />
                         </div>
@@ -346,6 +364,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setTeamSize(e.target.value ? Number(e.target.value) : "")}
                                 fullWidth
                                 size="small"
+                                helperText="Number of people working on this project"
                             />
                             <TextField
                                 label="Lead Developer"
@@ -355,6 +374,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setLeadDeveloper(e.target.value)}
                                 fullWidth
                                 size="small"
+                                placeholder="John Doe"
+                                helperText="Primary person responsible for this project"
                             />
 
                             <Divider sx={{ mt: 1 }} />
@@ -373,6 +394,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setEstimatedHours(e.target.value ? Number(e.target.value) : "")}
                                 fullWidth
                                 size="small"
+                                helperText="Projected time to complete the project"
                             />
                             <TextField
                                 label="Actual Hours"
@@ -384,6 +406,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setActualHours(e.target.value ? Number(e.target.value) : "")}
                                 fullWidth
                                 size="small"
+                                helperText="Time actually spent on the project"
                             />
 
                             <Divider sx={{ mt: 1 }} />
@@ -401,12 +424,13 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 onChange={(e) => setCategory(e.target.value)}
                                 fullWidth
                                 size="small"
+                                helperText="Type or domain of the project"
                             />
                             <Autocomplete
                                 value={riskLevel}
                                 onChange={(_event, newValue) => setRiskLevel((newValue || "low") as any)}
                                 options={["low", "medium", "high"]}
-                                renderInput={(params) => <TextField {...params} label="Risk Level" size="small" />}
+                                renderInput={(params) => <TextField {...params} label="Risk Level" size="small" helperText="Potential risk of delays or issues" />}
                                 slotProps={{ popper: { style: { zIndex: 20000 } } }}
                             />
                             <FormControlLabel
@@ -419,6 +443,9 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                                 }
                                 label="Is Active"
                             />
+                            <Typography variant="caption" color="text.secondary" sx={{ mt: -1, ml: 4 }}>
+                                Whether this project is currently being worked on
+                            </Typography>
                         </div>
                     </div>
 
@@ -443,6 +470,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                             }}
                             fullWidth
                             size="small"
+                            placeholder="backend, frontend, experimental, etc."
+                            helperText="Press Enter or click 'Add Tag' to add custom tags for organization"
                         />
                         <Button
                             onClick={handleAddTag}
@@ -477,6 +506,8 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                         onChange={(e) => setNotes(e.target.value)}
                         fullWidth
                         size="small"
+                        placeholder="Any additional details or context about this project..."
+                        helperText="Free-form text for any additional context or important details"
                     />
                 </>
             )}
