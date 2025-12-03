@@ -81,12 +81,25 @@ select {
 button svg,
 button * {
     color: var(--iris-primary);
-    fill: lightgray;
-    stroke: currentColor;
-    transition: 1s;
+    fill: currentColor;
+    transition: color 150ms ease;
 }
 
 button:hover svg,
 button:hover * {
-    fill: white;
+    color: var(--iris-primary);
+    fill: currentColor;
+}
+
+/* White icons for MUI contained primary buttons */
+.MuiButton-contained.MuiButton-colorPrimary svg,
+.MuiButton-contained.MuiButton-colorPrimary * {
+    color: white !important;
+    fill: currentColor !important;
+}
+
+.MuiButton-contained.MuiButton-colorPrimary:hover svg,
+.MuiButton-contained.MuiButton-colorPrimary:hover * {
+    color: white !important;
+    fill: currentColor !important;
 }

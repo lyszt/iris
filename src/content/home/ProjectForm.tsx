@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import CloseIcon from '@mui/icons-material/Close';
 import * as languages from "linguist-languages";
 import { addProject } from "./projectServices";
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
@@ -145,9 +147,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
     return <form onSubmit={prepareProject} className="w-full bg-white z-9999 flex flex-col shadow-2xl rounded-lg h-full">
         <div className={`bg-gray-200 p-4 rounded-t-lg flex items-center justify-between sticky top-0 z-50 flex-shrink-0 ${!isExpanded ? 'handle cursor-move' : ''}`}>
             <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" style={{ color: 'var(--iris-primary)' }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
-                </svg>
+                <DragIndicatorIcon sx={{ color: 'var(--iris-primary)' }} />
                 <h2 className="text-lg font-semibold text-gray-900">Add Project</h2>
             </div>
             <button
@@ -155,9 +155,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                 onClick={onCancel}
                 className="p-1 hover:bg-gray-300 rounded transition-colors"
             >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" style={{ color: 'var(--iris-primary)' }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <CloseIcon sx={{ color: 'var(--iris-primary)' }} />
             </button>
         </div>
 

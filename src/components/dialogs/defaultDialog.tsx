@@ -1,6 +1,5 @@
 import { type FC } from "react";
 import { useEffect, useState } from "react";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 interface DefaultDialogProps {
     innerText: string;
@@ -31,12 +30,11 @@ const DefaultDialog: FC<DefaultDialogProps> = ({ innerText }) => {
                 <span
                     role="status"
                     aria-live="polite"
-                        className={`pointer-events-auto p-5 text-slate-800 bg-gray-200 rounded transition-all duration-300 ease-out transform ${visible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2"}`}
+                    className={`pointer-events-auto p-5 text-slate-800 bg-gray-200 rounded transition-all duration-300 ease-out transform ${
+                        visible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2"
+                    }`}
                 >
-                        <div className="flex items-start gap-2">
-                            <InfoOutlinedIcon fontSize="small" sx={{ color: 'var(--iris-primary)' }} aria-hidden="true" />
-                            <div className="text-sm leading-tight">{innerText}</div>
-                        </div>
+                    {innerText}
                 </span>
             </div>
         );

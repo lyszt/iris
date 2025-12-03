@@ -12,6 +12,8 @@ import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutl
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import CloseIcon from '@mui/icons-material/Close';
 import { addProject, addProjectsBulk, type BulkImportResult } from "./projectServices";
 // For clipboarding
 import DefaultDialog from "../../components/dialogs/defaultDialog";
@@ -135,9 +137,7 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
     return <form onSubmit={handleSubmit} className="w-full bg-white z-9999 flex flex-col shadow-2xl rounded-lg h-full">
         <div className="bg-gray-200 p-4 rounded-t-lg flex items-center justify-between sticky top-0 z-50 flex-shrink-0">
             <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" style={{ color: 'var(--iris-primary)' }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
-                </svg>
+                <DragIndicatorIcon sx={{ color: 'var(--iris-primary)' }} />
                 <h2 className="text-lg font-semibold text-gray-900">Add Project via JSON</h2>
             </div>
             <button
@@ -145,9 +145,7 @@ const AddJSONProjectForm: FC<AddJSONProjectFormProps> = ({ onCancel, onSubmit, p
                 onClick={onCancel}
                 className="p-1 hover:bg-gray-300 rounded transition-colors"
             >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" style={{ color: 'var(--iris-primary)' }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <CloseIcon sx={{ color: 'var(--iris-primary)' }} />
             </button>
         </div>
 
