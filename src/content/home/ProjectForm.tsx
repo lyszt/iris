@@ -231,7 +231,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ onCancel, onSubmit, projectManager,
                 fullWidth
                 sx={{ mt: 1 }}
             >
-                {isExpanded ? "Less Options" : "More Options"}
+                {isExpanded ? "Less Options" : "Show Advanced Options"}
             </Button>
             {!isExpanded && (
                 <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', display: 'block' }}>
